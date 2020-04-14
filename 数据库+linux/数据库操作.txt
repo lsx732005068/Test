@@ -1,0 +1,33 @@
+1、创建学生表
+      create table student( 
+          name varchar(10),
+          age int unsigned)
+
+2、排序
+     order by
+
+3、聚合函数
+     count(*)表示计算总行数，括号中写星号与列名，结果是相同的
+     聚合函数不能在where中使用
+     常用的聚合函数有5个： count(*)、max()、min()、sum()、avg()
+
+4、分组
+     按照字段分组，表示此字段相同的数据会被放到一个组中
+     分组后，分组的数据会显示在结果集中，其他列不会显示在结果集中
+     可以对分组后的数据进行统计，做聚合运算 
+     select 列1,列2,聚合... from 表名 group by 列1,列2...
+
+     分组后的数据筛选：
+     select 列1，列2，聚合...from 表名
+     group by 列1，列2，列3...
+     having 列1，...聚合...
+
+     对比where与having
+     1）where是对from后面指定的表进行数据筛选，属于对原始数据的筛选
+     2）having是对group by 的结果进行筛选
+
+5、获取部分行
+     语法： select * from 表名 limit start,count
+     ps：从start开始，获取count条数据
+           start索引从0开始
+ 
