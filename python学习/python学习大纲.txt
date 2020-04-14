@@ -1,0 +1,9 @@
+1、python的注释
+     单行注释 #、多行注释''' '''
+2、python的变量
+   
+3、变量的类型
+     Number：int、long、float、complex（复数）
+     boolean：true、false
+     String ：字符串
+     
