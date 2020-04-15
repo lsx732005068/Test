@@ -27,7 +27,76 @@
      2）having是对group by 的结果进行筛选
 
 5、获取部分行
-     语法： select * from 表名 limit start,count
-     ps：从start开始，获取count条数据
-           start索引从0开始
+     5-1：语法： select * from 表名 limit start,count
+             ps：从start开始，获取count条数据
+             start索引从0开始
+
+     5-2：已知：每页显示m条数据，求：显示第n页的数据
+             select * from students limit (n-1)*m,m
+
+     5-3：求总页数，m是每页的数据
+             查询总条数 p1
+             使用p1除以m得到p2
+             如果整除则p2为总页数
+             如果不整除则p2+1为总页数
+
+6、连接查询
+    6-1：等值连接
+       方式一：select * from 表1,表2 where 表1.列=表2.列
+       方式二(又称内连接)：
+           select * from 表1
+           inner join 表2 on 表1.列=表2.列
+     6-2：左连接 left join
+     6-3：右连接 right join
+
+7、自关联
+     select * from areas as p left join areas as c on c.pid=p.aid
+     left join areas as a on a.pid=c.aid where p.atitle='河南省'
+
+8、子查询分类
+     8-1：标量子查询：子查询返回的结果是一个数据（一行一列）
+             select * from students where age > (select avg(age) from students);
+
+     8-2：列子查询：返回的结果是一列（一列多行）
+             select * from scores where studentNo in (select studentNo from students where age=18)
+
+     8-3：行级子查询: 返回的结果是一行(一行多列)
+             select * from students where (sex,age) = (select sex,age from students where sex='男' order by age desc limit 1)
+
+     8-4：表级子查询: 返回的结果是多行多列
+            select * from scores s inner join (select * from courses where name in ('数据库','系统测试')) c on s.courseNo = c.courseNo
+
+9、子查询中特定关键字使用
+       in范围  格式: 主查询 where 条件 in (列子查询)
+       any|some 任意一个  格式: 主查询 where 列 = any (列子查询)
+                                            在条件查询的结果中匹配任意一个即可,等价于 in
+
+       格式: 主查询 where 列 = all(列子查询) : 等于里面所有
+       格式: 主查询 where 列 <>all(列子查询) : 不等一其中所有
+
+10、练习
+       10-1：
+               求所有电脑产品的平均价格,并且保留两位小数
+               select round(avg(price),2) from goods 
+       10-2：
+               插入查询数据： INSERT into goods_cates (cate_name) select cate from goods group by cate
+ 
+       10-3：
+               已有表修改数据：update goods g inner join goods_cates c on g.cate = c.cate_name set g.cate = c.cate_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
